@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
+                            categories.clear();
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 categories.add(document.getId());
                             }
@@ -69,6 +71,13 @@ public class MainActivity extends AppCompatActivity {
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(categories);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+    }
+
+    public void openAccount(View view)
+    {
+        Intent intent = new Intent(MainActivity.this, AccountActivity.class);
+        startActivity(intent);
 
     }
 }

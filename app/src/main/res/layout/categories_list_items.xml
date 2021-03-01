@@ -21,6 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/prlist"
         android:layout_width="380dp"
         android:layout_height="170dp"
         android:orientation="horizontal"

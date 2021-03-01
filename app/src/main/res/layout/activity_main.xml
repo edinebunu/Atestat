@@ -51,6 +51,7 @@
         android:layout_width="60dp"
         android:layout_height="55dp"
         android:layout_marginStart="32dp"
+        android:onClick="openAccount"
         app:layout_constraintBottom_toBottomOf="@+id/button4"
         app:layout_constraintStart_toEndOf="@+id/button4"
         app:layout_constraintTop_toTopOf="@+id/button4"
