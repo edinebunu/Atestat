@@ -46,9 +46,10 @@
 
     <Button
         android:id="@+id/button11"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="14dp"
+        android:layout_height="14dp"
         android:layout_marginStart="8dp"
+        android:background="@drawable/heart"
         app:layout_constraintBottom_toBottomOf="@+id/button10"
         app:layout_constraintStart_toEndOf="@+id/button10"
         app:layout_constraintTop_toTopOf="@+id/button10" />

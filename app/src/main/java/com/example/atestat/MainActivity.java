@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         mUid = mAuth.getUid();
 
-
     }
 
     @Override
@@ -63,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
-
     }
 
     public void initRecyclerView(){
@@ -71,13 +69,27 @@ public class MainActivity extends AppCompatActivity {
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(categories);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
     }
 
     public void openAccount(View view)
     {
         Intent intent = new Intent(MainActivity.this, AccountActivity.class);
+        intent.putExtra("ProductId", mUid);
         startActivity(intent);
-
     }
+
+    public void openCart(View view)
+    {
+        Intent intent = new Intent(MainActivity.this, CartActivity.class);
+        intent.putExtra("ProductId", mUid);
+        startActivity(intent);
+    }
+
+    public void openFavourites(View view)
+    {
+        Intent intent = new Intent(MainActivity.this, FavouritesActivity.class);
+        intent.putExtra("ProductId", mUid);
+        startActivity(intent);
+    }
+
 }

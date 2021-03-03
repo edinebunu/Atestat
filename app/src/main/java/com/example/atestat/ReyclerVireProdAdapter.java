@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,21 +16,28 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ReyclerVireProdAdapter extends RecyclerView.Adapter<ReyclerVireProdAdapter.ViewHolder> {
 
     private Context context;
+    String type;
 
-    public ReyclerVireProdAdapter(ArrayList<String> categories)
+    public ReyclerVireProdAdapter(ArrayList<String> categories, String type)
     {
         this.categories = categories;
+        this.type = type;
     }
 
     @Override
@@ -69,13 +77,40 @@ public class ReyclerVireProdAdapter extends RecyclerView.Adapter<ReyclerVireProd
             public void onClick(View view){
                 Intent intent = new Intent(context,ProductActivity.class);
                 intent.putExtra("ProductId", categories.get(position));
+                intent.putExtra("Type", type);
                 context.startActivity(intent);
             }
         });
 
+        holder.favourites.setOnClickListener(new View.OnClickListener(){
+
+            FirebaseAuth auth = FirebaseAuth.getInstance();
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            Map<String, Object> nestedData = new HashMap<>();
+
+            @Override
+            public void onClick(View view){
+                db.collection("Users").document(auth.getUid())
+                        .collection("Favourites").document(categories.get(position)).set(nestedData);
+            }
+        });
+
+        holder.addCart.setOnClickListener(new View.OnClickListener(){
+
+            FirebaseAuth auth = FirebaseAuth.getInstance();
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            Map<String, Object> nestedData = new HashMap<>();
+
+            @Override
+            public void onClick(View view){
+                db.collection("Users").document(auth.getUid())
+                        .collection("Cart").document(categories.get(position)).set(nestedData);
+
+                db.collection("Users").document(auth.getUid())
+                        .collection("BuyedProducts").document(categories.get(position)).set(nestedData);
+            }
+        });
     }
-
-
 
     private ArrayList<String> categories;
 
@@ -90,6 +125,8 @@ public class ReyclerVireProdAdapter extends RecyclerView.Adapter<ReyclerVireProd
         TextView price;
         TextView item;
         ImageView pic;
+        Button addCart;
+        Button favourites;
 
         public ViewHolder(View itemView)
         {
@@ -99,14 +136,9 @@ public class ReyclerVireProdAdapter extends RecyclerView.Adapter<ReyclerVireProd
             item = itemView.findViewById(R.id.textView5);
             context = itemView.getContext();
             parentLayout = itemView.findViewById(R.id.cl1);
+            addCart = itemView.findViewById(R.id.button10);
+            favourites = itemView.findViewById(R.id.button11);
 
         }
     }
-
-    public void openProduct(View view){
-        Intent intent  = new Intent(context, ProductActivity.class);
-
-    }
-
-
 }

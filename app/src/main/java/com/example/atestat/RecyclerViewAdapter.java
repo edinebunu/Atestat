@@ -36,7 +36,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.cat.setText(categories.get(position));
 
         final ArrayList<String> prodIds = new ArrayList<>();
@@ -51,14 +51,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 prodIds.add(document.getId());
                             }
-                            initProdList(prodIds,holder);
+                            String type = categories.get(position);
+                            initProdList(prodIds,holder,type);
                         }
                     }
                 });
     }
 
-    private void initProdList(ArrayList<String> mIds, ViewHolder holder){
-        ReyclerVireProdAdapter adapter = new ReyclerVireProdAdapter(mIds);
+    private void initProdList(ArrayList<String> mIds, ViewHolder holder,String type){
+        ReyclerVireProdAdapter adapter = new ReyclerVireProdAdapter(mIds, type);
         holder.prod.setAdapter(adapter);
         holder.prod.setLayoutManager(new LinearLayoutManager(context));
     }

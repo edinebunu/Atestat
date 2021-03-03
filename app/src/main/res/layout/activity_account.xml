@@ -60,7 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:backgroundTint="#407EDC"
-        android:text="Retur si Service"
+        android:text="Info eMAG"
         app:layout_constraintEnd_toEndOf="@+id/button7"
         app:layout_constraintStart_toStartOf="@+id/button7"
         app:layout_constraintTop_toBottomOf="@+id/button7" />
@@ -80,7 +80,7 @@
         app:layout_constraintVertical_bias="0.482" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/nameid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"

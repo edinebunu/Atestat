@@ -25,9 +25,9 @@ public class PictureSetter {
     StorageReference storageReference = storage.getReferenceFromUrl("gs://atestat-1545f.appspot.com/");
 
     public void setImageRound(String imgId, final CircleImageView view) throws IOException {
-        StorageReference mRef = storageReference.child("Item Picture").child(imgId+".jpeg");
+        StorageReference mRef = storageReference.child("profile-images").child(imgId+".jpeg");
         final File file = File.createTempFile("image","jpeg");
-        mRef.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                mRef.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                 Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
