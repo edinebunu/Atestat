@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(categories);
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
     }
 
     public void openAccount(View view)

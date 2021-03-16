@@ -106,8 +106,6 @@ public class ReyclerVireProdAdapter extends RecyclerView.Adapter<ReyclerVireProd
                 db.collection("Users").document(auth.getUid())
                         .collection("Cart").document(categories.get(position)).set(nestedData);
 
-                db.collection("Users").document(auth.getUid())
-                        .collection("BuyedProducts").document(categories.get(position)).set(nestedData);
             }
         });
     }

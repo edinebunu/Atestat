@@ -24,7 +24,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/prlist"
-        android:layout_width="380dp"
+        android:layout_width="0dp"
         android:layout_height="170dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"

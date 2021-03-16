@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -50,6 +51,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 prodIds.add(document.getId());
+
                             }
                             String type = categories.get(position);
                             initProdList(prodIds,holder,type);
@@ -61,7 +63,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private void initProdList(ArrayList<String> mIds, ViewHolder holder,String type){
         ReyclerVireProdAdapter adapter = new ReyclerVireProdAdapter(mIds, type);
         holder.prod.setAdapter(adapter);
-        holder.prod.setLayoutManager(new LinearLayoutManager(context));
+        holder.prod.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
     }
 
     private ArrayList<String> categories;

@@ -38,6 +38,7 @@
         android:layout_marginTop="100dp"
         android:layout_marginEnd="16dp"
         android:backgroundTint="#407EDC"
+        android:onClick="openOrders"
         android:text="Comenzile Mele"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

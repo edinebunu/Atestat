@@ -64,7 +64,10 @@ public class AccountActivity extends AppCompatActivity {
         }
     }
 
-
+    public void openOrders(View view){
+        Intent intent = new Intent(AccountActivity.this, UserOrdersActivity.class);
+        startActivity(intent);
+    }
 
     public void sugnOut( View view)
     {

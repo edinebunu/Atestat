@@ -1,14 +1,12 @@
 package com.example.atestat;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -24,23 +22,21 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
-public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
+public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.ViewHolder> {
 
     private Context context;
     private FirebaseAuth mAuth;
     public ArrayList<String> categories;
 
-    public CartAdapter(ArrayList<String> categories)
+    public FavouritesAdapter(ArrayList<String> categories)
     {
         this.categories = categories;
     }
 
     @Override
-    public CartAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+    public FavouritesAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cart_item,parent,false);
         return new ViewHolder(view);
@@ -81,10 +77,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
 
                 try{
-                    Task<Void> docRef = db.collection("Users").document(currentUser.getUid()).collection("Cart").document(categories.get(position)).delete();
+                    Task<Void> docRef = db.collection("Users").document(currentUser.getUid()).collection("Favourites").document(categories.get(position)).delete();
                 }catch(Exception e){}
 
-                CartActivity.ceplmeasta(position);
+                FavouritesActivity.ceplmeasta(position);
             }
         });
     }
