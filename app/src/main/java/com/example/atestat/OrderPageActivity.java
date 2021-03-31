@@ -24,8 +24,6 @@ import java.util.Date;
 public class OrderPageActivity extends AppCompatActivity {
 
     TextView orders;
-    String total = "";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,13 +56,14 @@ public class OrderPageActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
+                        String total = "";
 
                         ArrayList<String> mItems ;
                         mItems = (ArrayList<String>) document.get("ProductId");
 
                         assert mItems != null;
                         for(String item : mItems)
-                            addStringEntry(item);
+                            addStringEntry(item,orders);
                         orders.setText(total);
                     }
 
@@ -73,23 +72,21 @@ public class OrderPageActivity extends AppCompatActivity {
         });
     }
 
-    private void addStringEntry(String id){
-
+    private void addStringEntry(String id, final TextView orders){
+        final String[] prod = new String[1];
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        final DocumentReference docRef = db.collection("Products").document(id);
+        DocumentReference docRef = db.collection("Products").document(id);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
-                    String prod = null;
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        
-                        prod = document.get("Name").toString();
-                        Toast.makeText(OrderPageActivity.this, total, Toast.LENGTH_SHORT).show();
+                        prod[0] = document.get("Name").toString();
+                        orders.append("- " + prod[0] + "\n");
+                        //Toast.makeText(OrderPageActivity.this, prod[0], Toast.LENGTH_SHORT).show();
                     }
-                    total = prod;
                 }
             }
         });

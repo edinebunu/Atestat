@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         recyclerView = findViewById(R.id.recycler);
-
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         mUid = mAuth.getUid();
 
@@ -68,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(categories);
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
     }
 
     public void openAccount(View view)

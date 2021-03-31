@@ -7,12 +7,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -21,6 +23,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ProductActivity extends AppCompatActivity {
 
@@ -104,7 +108,16 @@ public class ProductActivity extends AppCompatActivity {
     private void loadRecomanded(){
         ReyclerVireProdAdapter adapter = new ReyclerVireProdAdapter(categories,type);
         recomanded.setAdapter(adapter);
-        recomanded.setLayoutManager(new LinearLayoutManager(this));
+        recomanded.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL,false));
+    }
+
+    public void addCart(View view){
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        Map<String, Object> nestedData = new HashMap<>();
+
+        db.collection("Users").document(auth.getUid())
+                .collection("Cart").document(mId).set(nestedData);
     }
 
 }

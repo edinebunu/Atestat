@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context=".InfoActivity">
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="12dp"
+        android:text="Despre eMAG Marketplace eMAG Marketplace este sistemul prin care partenerii eMAG isi afiseaza propriile produse pe emag.ro, alaturi de produsele vandute direct de catre eMAG. Clientii pot comanda simultan atat produse eMAG cat si produse din oferta oricarui partener eMAG.  Toti partenerii care fac parte din sistemul Marketplace au fost atent selectati si sunt permanent evaluati si monitorizati ca sa putem asigura standardele de calitate cu care sunt obisnuiti clientii eMAG.  Fiecare produs de pe emag.ro poarta una dintre aceste etichete: 1.    Produs vandut si livrat de eMAG – produsul este vandut direct de catre compania care detine eMAG, Dante International SA, si este insotit de serviciile dezvoltate de eMAG 2.    Produs vandut si livrat de PartenerX – produsul este vandut de PartenerX, o companie independenta, calificata in sistemul eMAG Marketplace in urma analizarii calitatii serviciilor si produselor pe care le ofera. Cand comanzi un astfel de produs, transmitem comanda ta partenerului si acesta ti-l va livra impreuna cu toate documentele legale.  Conditiile comerciale, taxele de livrare, politica si taxele de retur, precum si garantiile produselor pot fi diferite pentru fiecare partener; acestea sunt afisate pe pagina dedicata partenerului. De asemenea, acestea nu sunt aceleasi cu cele care insotesc produsele vandute direct de catre eMAG."
+        android:textColor="#000000"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
