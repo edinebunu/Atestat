@@ -45,6 +45,16 @@ public class PictureSetter {
             public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                 Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
                 view.setImageBitmap(bitmap);
+                return;
+            }
+        });
+        StorageReference mRefi = storageReference.child("Item Picture").child(imgId+".jpeg");
+        final File filei = File.createTempFile("image","jpeg");
+        mRefi.getFile(filei).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                Bitmap bitmap = BitmapFactory.decodeFile(filei.getAbsolutePath());
+                view.setImageBitmap(bitmap);
             }
         });
     }

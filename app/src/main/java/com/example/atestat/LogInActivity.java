@@ -7,6 +7,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +18,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class LogInActivity extends AppCompatActivity {
 
@@ -63,7 +67,7 @@ public class LogInActivity extends AppCompatActivity {
                             //Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
 
-                            String mUid = user.getUid();
+                            final String mUid = user.getUid();
 
                             try
                             {
@@ -71,16 +75,39 @@ public class LogInActivity extends AppCompatActivity {
                                 SharedPreferences.Editor editor = prefs.edit();
                                 editor.putBoolean("login", true);
                                 editor.apply();
-                                Intent intent = new Intent(LogInActivity.this, MainActivity.class);
-                                intent.putExtra("UID",mUid);
-                                startActivity(intent);
-                                finish();
+
+                                FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+                                DocumentReference docRef = db.collection("Users").document(mUid);
+//                                Toast.makeText(LogInActivity.this, mUid, Toast.LENGTH_SHORT).show();
+                                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                        if (task.isSuccessful()) {
+                                            DocumentSnapshot document = task.getResult();
+                                            if (document.exists()) {
+                                                    try {
+                                                        if(document.getBoolean("isAdmin")) {
+                                                            Intent intent = new Intent(LogInActivity.this, AdminLandingActivity.class);
+                                                            intent.putExtra("UID", mUid);
+                                                            startActivity(intent);
+                                                            finish();
+                                                        }
+                                                    }catch(NullPointerException ignored){
+                                                        Intent intent = new Intent(LogInActivity.this, MainActivity.class);
+                                                        intent.putExtra("UID", mUid);
+                                                        startActivity(intent);
+                                                        finish();
+                                                    }
+                                            }
+                                        }
+                                    }
+                                });
                             }
                             catch(NullPointerException e){
                                 Toast.makeText(LogInActivity.this, "Log In failed.",
                                         Toast.LENGTH_SHORT).show();
                             }
-
                         } else {
                             // If sign in fails, display a message to the user.
 

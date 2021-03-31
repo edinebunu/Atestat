@@ -1,5 +1,6 @@
 package com.example.atestat;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -9,8 +10,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class WelcomePage extends AppCompatActivity {
 
@@ -20,6 +26,7 @@ public class WelcomePage extends AppCompatActivity {
     private long backPressedTime;
     private Toast backToast;
     FirebaseUser firebaseUser;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onStart() {
@@ -28,9 +35,35 @@ public class WelcomePage extends AppCompatActivity {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         if(firebaseUser != null) {
-            Intent intent = new Intent(WelcomePage.this, MainActivity.class);
-            startActivity(intent);
-            finish();
+
+            final String mUid = mAuth.getUid();
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            DocumentReference docRef = db.collection("Users").document(mUid);
+            Toast.makeText(WelcomePage.this, mUid, Toast.LENGTH_SHORT).show();
+            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+
+                            try {
+                                if(document.getBoolean("isAdmin")) {
+                                    Intent intent = new Intent(WelcomePage.this, AdminLandingActivity.class);
+                                    intent.putExtra("UID", mUid);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            }catch(NullPointerException ignored){
+                                Intent intent = new Intent(WelcomePage.this, MainActivity.class);
+                                intent.putExtra("UID", mUid);
+                                startActivity(intent);
+                                finish();
+                            }
+                        }
+                    }
+                }
+            });
         }
     }
 
@@ -43,6 +76,7 @@ public class WelcomePage extends AppCompatActivity {
         boolean login = prefs.getBoolean("login", false);
 
         SignUp = (Button) findViewById(R.id.signup);
+        mAuth = FirebaseAuth.getInstance();
 
         SignUp.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
