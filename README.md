@@ -16,7 +16,7 @@ Used technoogies:<br>
 <br>
 
 Future implementations:<br>
--Dynamically load products
+-Dynamically load products<br>
 -Downsample images for more efficient load times
 
 <img src="https://github.com/edinebunu/Atestat/blob/master/Images/Screenshot%202021-07-03%20181410.png" width="200"> |
