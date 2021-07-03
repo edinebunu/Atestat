@@ -8,11 +8,11 @@ Functionalities:<br>
   -Finalyze order<br>
   -Add new products from admin account<br>
   -See past orders
- 
+ <br><br>
 Used technoogies:<br>
   -Java<br>
   -Android Studio
   -Firebase Firestore<br>
-
+<br>
 <img src="https://github.com/edinebunu/Atestat/blob/master/Images/Screenshot%202021-07-03%20181410.png" width="200"> |
 <img src="https://github.com/edinebunu/Atestat/blob/master/Images/Screenshot%202021-07-03%20181943.png" width="200"> 
