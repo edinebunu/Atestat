@@ -14,5 +14,10 @@ Used technoogies:<br>
   -Android Studio
   -Firebase Firestore<br>
 <br>
+
+Future implementations:<br>
+-Dynamically load products
+-Downsample images for more efficient load times
+
 <img src="https://github.com/edinebunu/Atestat/blob/master/Images/Screenshot%202021-07-03%20181410.png" width="200"> |
 <img src="https://github.com/edinebunu/Atestat/blob/master/Images/Screenshot%202021-07-03%20181943.png" width="200"> 
